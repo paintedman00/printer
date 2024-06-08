@@ -1,18 +1,22 @@
 const tree = function (input) {
-  if (typeof input === 'string') {
-    console.log(input);
-  } else if (typeof input === 'number') {
-    console.log(input);
-  } else if (typeof input === 'boolean') {
-    console.log(input);
-  } else if (Array.isArray(input)) {
-    input.forEach((element) => {
-      tree(element);
-    });
-  } else if (typeof input === 'object') {
-    for (let key in input) {
-      tree(input[key]);
-    }
+  switch (typeof input) {
+    case 'string':
+    case 'number':
+    case 'boolean':
+      console.log(input);
+      break;
+    case 'object':
+      if (Array.isArray(input)) {
+        input.forEach(element => tree(element));
+      } else {
+        for (let key in input) {
+          if (input.hasOwnProperty(key)) {
+            tree(input[key]);
+          }
+        }
+      }
+      break;
+    default:
+      console.log('Unsupported type');
   }
 }
-
